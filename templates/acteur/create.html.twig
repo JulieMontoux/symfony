@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'Acteur{% endblock %}
+{% block pageTitle %}Création d'Acteur{% endblock %}
+
+{% block body %}
+<form action="" method="POST" >
+    <div class="">
+        <div class="grid grid-cols-2 gap-2">
+            <label for="nom">
+                Nom :
+            </label>
+            <input class="border border-gray-700" type="text" name="nom" id="nom" />
+        </div> 
+        <div class="grid grid-cols-2 gap-2">
+            <label for="prenom">
+                Prenom :
+            </label>
+            <input class="border border-gray-700" name="prenom" id="prenom"></input>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <label for="naissance">
+                Date de naissance :
+            </label>
+            <input class="border border-gray-700" type="date" name="naissance" id="naissance" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <label for="deces">
+                    Date de deces :
+            </label>
+            <input class="border border-gray-700" type="date" name="deces" id="deces" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <label for="photo">
+                photo :
+            </label>
+            <input class="border border-gray-700" type="text" name="photo" id="photo" />
+        </div> 
+        <div class="col-span-2 flex justify-around">
+            <button class="border border-gray-700 rounded-md px-4 py-1" type="reset">Annuler</button>
+            <button class="border border-gray-700 rounded-md px-4 py-1" type="submit">Enregistrer</button>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

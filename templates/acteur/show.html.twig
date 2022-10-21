@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'acteur{% endblock %}
+{% block pageTitle %}Détail de l'acteur{% endblock %}
+
+{% block body %}
+<div class="jumbotron" style="height: 525px;">
+    <div class="container">
+        <div class="col-auto d-none d-lg-block">
+                <img src=../images/{{acteur.photo}} alt={{acteur.nom}} class="bd-placeholder-img" width="200" height="250">
+        </div>
+        <div class="row">
+            <div class="col-md-4" >
+                <h1 class="text-center">{{acteur.prenom}} {{acteur.nom}} </h1>
+                <h2 class="text-center text-muted">Date de naissance: {{acteur.naissance|date("d/m/Y")}}</h2>
+                <h2 class="text-center text-muted">
+                {% if acteur.deces == null %}
+                    Acteur toujours en vie.
+                {% else %}
+                    Date de décès: {{ acteur.deces|date("d/m/Y") }}
+                {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Infos techniques :</h2>
+            <table class="table table-striped" style="margin-top: 15px;">
+                <tr>
+                    <h3>Films</h3>
+                    <td>
+                        {% for films in acteur.films %}
+                            <a href="{{ path('app_film_show', {'id': films.id}) }}" style="text-decoration: none;">
+                                <div class="mb-1 text-dark">{{films.titre}}</div>
+                            </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

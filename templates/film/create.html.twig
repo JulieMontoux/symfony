@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de Film{% endblock %}
+{% block pageTitle %}Création de Film{% endblock %}
+
+{% block body %}
+<form action="" method="POST" >
+    <div class="">
+        <div class="grid grid-cols-2 gap-2">
+            <label for="titre">
+                Titre du film :
+            </label>
+            <input class="border border-gray-700" type="text" name="titre" id="titre" />
+        </div> 
+        <div class="grid grid-cols-2 gap-2">
+            <label for="genre_id">
+                Genre :
+            </label>
+            <select class="border border-gray-700" name="genre_id" id="genre_id">
+                <option value="" />
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}">{{ genre.categorie}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {# <div class="grid grid-cols-2 gap-2">
+            <label for="acteurs">
+                Acteur :
+            </label>
+            <select class="border border-gray-700" name="acteurs" id="acteurs">
+                <option value="" />
+                {% for acteurs in acteur %}
+                    <option value="{{ acteurs.id }}">{{ acteurs.nom}}{{ acteurs.prenom}}</option>
+                {% endfor %}
+            </select> 
+        </div> #}
+        <div class="grid grid-cols-2 gap-2">
+            <label for="resume">
+                Résumé :
+            </label>
+            <textarea class="border border-gray-700" name="resume" id="resume"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <label for="sortie">
+                Date de sortie :
+            </label>
+            <input class="border border-gray-700" type="date" name="sortie" id="sortie" />
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <label for="affiche">
+                affiche :
+            </label>
+            <input class="border border-gray-700" type="text" name="affiche" id="affiche" />
+        </div> 
+        
+        <div class="col-span-2 flex justify-around">
+            <button class="border border-gray-700 rounded-md px-4 py-1" type="reset">Annuler</button>
+            <button class="border border-gray-700 rounded-md px-4 py-1" type="submit">Enregistrer</button>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

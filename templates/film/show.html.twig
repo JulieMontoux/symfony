@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail du film{% endblock %}
+{% block pageTitle %}Détail du film{% endblock %}
+
+{% block body %}
+<div class="jumbotron" style="height: 525px;">
+    <div class="container">
+        <div class="col-auto d-none d-lg-block">
+                <img src={{film.affiche}} alt={{film.titre}} class="bd-placeholder-img" width="200" height="250">
+        </div>
+        <div class="row">
+            <div class="col-md-4" >
+                <h1 class="text-center">{{film.titre}} </h1>
+                <h2 class="text-center text-muted">Annee de sortie: {{film.sortie|date("Y")}}</h2>
+                <h2 class="text-center text-muted">Genre: {{ film.genre.categorie}}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Infos techniques :</h2>
+            <table class="table table-striped" style="margin-top: 15px;">
+                <tr>
+                    <h3>Acteurs</h3>
+                    <td>
+                        {# {% for acteurs in film.acteur %}
+                            <a href="{{ path('app_acteur_show', {id: films.id}) }}" style="text-decoration: none;">
+                                <div class="mb-1 text-dark">{{acteurs.nom}}{{acteurs.prenom}}</div>
+                            </a>
+                        {% endfor %} #}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div> 
+{% endblock %}

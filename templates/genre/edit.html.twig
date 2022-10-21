@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de Genre{% endblock %}
+{% block pageTitle %}Modification de Genre{% endblock %}
+
+{% block body %}
+<form action="" method="POST" >
+    <div class="">
+        <div class="grid grid-cols-2 gap-2">
+            <label for="categorie">
+                Nom de la catégorie :
+            </label>
+            <input class="border border-gray-700" type="text" name="categorie" id="categorie" />
+        </div> 
+        <div class="col-span-2 flex justify-around">
+            <button class="border border-gray-700 rounded-md px-4 py-1" type="reset">Annuler</button>
+            <button class="border border-gray-700 rounded-md px-4 py-1" type="submit">Enregistrer</button>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

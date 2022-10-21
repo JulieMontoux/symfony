@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+{% block pageTitle %}Liste des films{% endblock %}
+
+{% block body %}
+<a href="{{ url('app_film_create') }}"
+    class="border border-gray-700 rounded-md px-4 py-1">
+    Créer
+</a>
+
+<div class="example-wrapper">
+    <h1>Les films</h1>
+    <table class="table table-bordered table-condensed" width='80%'>
+        <thead>
+            <tr bgcolor='pink'>
+                <th>Titre</th>
+                <th>Genre</th>
+                <th>Date de sortie</th>
+                <th>Affiche</th>
+                <th>Option</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for films in film %}
+            <tr>
+                <td><a href="{{ url('app_film_show', {'id': films.id}) }}">{{ films.titre }}</a></td> 
+                <td>{{ films.genre.categorie}}</td>
+                <td>{{ films.sortie|date("Y")}}</td>
+                <td>{{ films.affiche }}</td>
+                <td>
+                    <a href="{{ url('app_film_edit', {'film': films.id}) }}">Modifier</a> 
+                    <a href="{{ url('app_film_delete', {'film': films.id}) }}">Supprimer</a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
