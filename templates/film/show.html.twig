@@ -6,35 +6,22 @@
 {% block body %}
 <div class="jumbotron" style="height: 525px;">
     <div class="container">
-        <div class="col-auto d-none d-lg-block">
-                <img src={{film.affiche}} alt={{film.titre}} class="bd-placeholder-img" width="200" height="250">
-        </div>
         <div class="row">
             <div class="col-md-4" >
+                <div class="col-auto d-none d-lg-block">
+                {% if film.affiche is not null %}
+                    <img src="{{ asset("uploads/"~film.affiche) }}" width="100" />
+                {% endif %}
+                </div>
                 <h1 class="text-center">{{film.titre}} </h1>
                 <h2 class="text-center text-muted">Annee de sortie: {{film.sortie|date("Y")}}</h2>
                 <h2 class="text-center text-muted">Genre: {{ film.genre.categorie}}</h2>
+                <h2>Acteurs :</h2>
+                <td>{% for acteur in film.acteurs %}
+                    <a href="{{ url('acteur', {'id': acteur.id}) }}" >{{ acteur.nom }}</a>
+                    {% endfor %}</td>
             </div>
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h2>Infos techniques :</h2>
-            <table class="table table-striped" style="margin-top: 15px;">
-                <tr>
-                    <h3>Acteurs</h3>
-                    <td>
-                        {# {% for acteurs in film.acteur %}
-                            <a href="{{ path('app_acteur_show', {id: films.id}) }}" style="text-decoration: none;">
-                                <div class="mb-1 text-dark">{{acteurs.nom}}{{acteurs.prenom}}</div>
-                            </a>
-                        {% endfor %} #}
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div> 
 {% endblock %}

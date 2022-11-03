@@ -23,23 +23,22 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h2>Infos techniques :</h2>
-            <table class="table table-striped" style="margin-top: 15px;">
-                <tr>
-                    <h3>Films</h3>
-                    <td>
-                        {% for films in acteur.films %}
-                            <a href="{{ path('app_film_show', {'id': films.id}) }}" style="text-decoration: none;">
-                                <div class="mb-1 text-dark">{{films.titre}}</div>
-                            </a>
-                        {% endfor %}
-                    </td>
-                </tr>
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Films :</h2>
+                <table class="table table-striped" style="margin-top: 15px;">
+                    <tr>
+                        <td>
+                            {% for films in acteur.films %}
+                                <a href="{{ path('app_film_show', {'id': films.id}) }}" style="text-decoration: none;">
+                                    <div class="mb-1 text-dark">{{films.titre}}</div>
+                                </a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

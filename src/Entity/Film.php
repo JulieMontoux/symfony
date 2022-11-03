@@ -140,7 +140,6 @@ class Film
     public function removeActeur(Acteur $acteur): self
     {
         $this->acteurs->removeElement($acteur);
-
         return $this;
     }
 }

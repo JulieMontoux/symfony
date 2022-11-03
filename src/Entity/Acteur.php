@@ -51,7 +51,7 @@ class Acteur
 
     public function __construct()
     {
-        $this->films = new ArrayCollection();
+        $this->films = new ArrayCollection(); 
     }
 
     public function getId(): ?int
@@ -122,6 +122,7 @@ class Acteur
     /**
      * @return Collection<int, Film>
      */
+
     public function getFilms(): Collection
     {
         return $this->films;

@@ -27,7 +27,7 @@
                 <td><a href="{{ url('app_film_show', {'id': films.id}) }}">{{ films.titre }}</a></td> 
                 <td>{{ films.genre.categorie}}</td>
                 <td>{{ films.sortie|date("Y")}}</td>
-                <td>{{ films.affiche }}</td>
+                
                 <td>
                     <a href="{{ url('app_film_edit', {'film': films.id}) }}">Modifier</a> 
                     <a href="{{ url('app_film_delete', {'film': films.id}) }}">Supprimer</a> 

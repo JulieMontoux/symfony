@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Film;
 use App\Entity\Genre;
+use App\Repository\FilmRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FilmController extends AbstractController
 {
     /**
-        * @Route("/film", name="app_film")
+    * @Route("/film", name="app_film")
     */
     public function index(): Response
     {
@@ -26,25 +27,16 @@ class FilmController extends AbstractController
         ]);
     }
 
-    // /**
-    //     * @Route("/film/show/{film}", name="app_film_show")
-    // */
-    //     public function show(Film $id)
-    //     {
-    //     $film = $this->getDoctrine()
-    //     ->getRepository(Film::class)
-    //     ->find($id);
-         
-    //     if (!$film) {
-    //     throw $this->createNotFoundException(
-    //     'No product found for id '.$id
-    //     );
-    //     }
-         
-    //     return new Response('Check out this great product: '.$film->getTitre());
-    // }
- 
+   /**
+     * @Route("/film/{id}", name="app_film_show")
+     */
 
+    public function show(Film $film): Response
+    {
+        return $this->render('film/show.html.twig', [
+            'film' => $film,
+        ]);
+    }
 
     /**
      * @Route("/film/create", name="app_film_create")
@@ -149,16 +141,4 @@ class FilmController extends AbstractController
         return $this->redirectToRoute('app_film');
     }
 
-    /**
-     * @Route("/film/{id}", name="app_film_show")
-     */
-
-    public function show(Film $film): Response
-    {
-        return $this->render('film/show.html.twig', [
-            'film' => $film,
-        ]);
 }
-}
-
-
