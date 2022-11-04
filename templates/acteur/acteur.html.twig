@@ -32,7 +32,13 @@
                 <td>
                 {{ acteurs.deces|date("d/m/Y") }}
                 </td>
-                <td>{{ acteurs.photo }}</td>
+                <td>
+                <div class="col-auto d-none d-lg-block">
+                {% if acteur.photo is not null %}
+                    <img src="{{ asset("images/"~acteur.photo) }}" width="100" />
+                {% endif %}
+                </div>
+                </td>
                 <td>
                     <a href="{{ url('app_acteur_edit', {'acteur': acteurs.id}) }}">Modifier</a>
                     <a href="{{ url('app_acteur_delete', {'acteur': acteurs.id}) }}">Supprimer</a>
