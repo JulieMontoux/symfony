@@ -16,6 +16,7 @@
             <tr bgcolor='pink'>
                 <th>Titre</th>
                 <th>Genre</th>
+                <th>Resumé</th>
                 <th>Date de sortie</th>
                 <th>Affiche</th>
             </tr>
@@ -27,7 +28,14 @@
                 <td>
                     <a href="{{ url('liste', {'genreid': films.genre.id}) }}">{{films.genre.categorie}}</a>
                 </td>
+                <td>{{ films.resume}}</td>
                 <td>{{ films.sortie|date("Y")}}</td>
+
+                <td>
+                {% if films.affiche is not null %}
+                <img src="{{ asset("affiches/"~films.affiche) }}" width="100" />
+                {% endif %}
+                </td>
                 
                 <td>
                     <a href="{{ url('app_film_edit', {'film': films.id}) }}">Modifier</a> 

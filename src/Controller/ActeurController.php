@@ -47,7 +47,7 @@ class ActeurController extends AbstractController
                 ->setPhoto('photo');
             $manager->persist($acteur);
             $manager->flush();
-            $file = $request->files->get('cover');
+            $file = $request->files->get('photo');
             if ($file) {
                 $newFilename = 'acteur-' . $acteur->getId() . '.' . $file->guessExtension();
 

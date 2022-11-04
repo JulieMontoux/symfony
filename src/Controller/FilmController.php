@@ -40,59 +40,58 @@ class FilmController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/film/create", name="app_film_create")
-     */
-
+ /**
+    * @Route("/films/create", name="app_film_create")
+    */
     public function create(Request $request): Response
     {
         if ($request->isMethod("POST")) {
             $manager = $this->getDoctrine()->getManager();
 
+            $affiche = $request->files->get('affiche');
+            $affiche_name = $affiche->getClientOriginalName();
+            $affiche->move($this->getParameter('affiche_directory'),$affiche_name);
             // Insertion en BDD
-            $film = new Film;
+            $film              = new Film;
             $film->setTitre($request->request->get('titre'))
                 ->setResume($request->request->get('resume'))
                 ->setSortie(
                     \DateTime::createFromFormat('Y-m-d', $request->request->get('sortie'))
                 )
-                
-                ->setAffiche($request->request->get('affiche'));
+                ->setAffiche($affiche_name);
 
             $genre = $this->getDoctrine()
                 ->getRepository(Genre::class)
-                ->find($request->request->get('genre_id'));
+                ->find($request->request->get('genre'));
             $film->setGenre($genre);
 
+            //Séléction d'un acteur pour le film créé
+            $acteurs = $request->request->get('acteurs');
+            foreach($acteurs as $acteurID) {
+                $acteur = $this->getDoctrine()
+                ->getRepository(Acteur::class)
+                ->find($acteurID);
+                $film->addActeur($acteur);
+
+}
             $manager->persist($film);
             $manager->flush();
-
-            $file = $request->files->get('affiche');
-            if ($file) {
-                $newFilename = 'film-' . $film->getId() . '.' . $file->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $file->move(
-                        'affiches',
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                $film->setAffiche('affiches/' . $newFilename);
-                $manager->flush();
-            }
 
             return $this->redirectToRoute('app_film');
         } else {
             $genres = $this->getDoctrine()
                 ->getRepository(Genre::class)
                 ->findAll();
+
+            $acteurs = $this->getDoctrine()
+                ->getRepository(Acteur::class)
+                ->findAll();
             // Affichage du formulaire
             return $this->render('film/create.html.twig', [
                 'controller_name' => 'FilmController',
-                'genres' => $genres
+                'genres'        => $genres,
+                'acteurs'        => $acteurs
+
             ]);
         }
     }
@@ -115,14 +114,6 @@ class FilmController extends AbstractController
                 ->getRepository(Genre::class)
                 ->find($request->request->get('genre'));
             $film->setGenre($genre);
-
-            $acteur = $request->request->get('acteur');
-            // foreach($i as $acteur) {
-            //     $acteur = $this->getDoctrine()
-            //     ->getRepository(Acteur::class)
-            //     ->find($acteur);
-            //     $film->addActeur($acteur);
-            // }
 
             $manager->flush();
 
