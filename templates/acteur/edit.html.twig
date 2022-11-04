@@ -4,37 +4,37 @@
 {% block pageTitle %}Modification d'Acteur{% endblock %}
 
 {% block body %}
-<form action="" method="POST" >
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="">
         <div class="grid grid-cols-2 gap-2">
             <label for="nom">
                 Nom :
             </label>
-            <input class="border border-gray-700" type="text" name="nom" id="nom" />
+            <input class="border border-gray-700" type="text" name="nom" id="nom" value="{{acteur.nom}}"/>
         </div> 
         <div class="grid grid-cols-2 gap-2">
             <label for="prenom">
                 Prenom :
             </label>
-            <input class="border border-gray-700" name="prenom" id="prenom"></input>
+            <input class="border border-gray-700" name="prenom" id="prenom"  value="{{acteur.prenom}}"></input>
         </div>
         <div class="grid grid-cols-2 gap-2">
             <label for="naissance">
                 Date de naissance :
             </label>
-            <input class="border border-gray-700" type="date" name="naissance" id="naissance" />
+            <input class="border border-gray-700" type="date" name="naissance" id="naissance" value="{{acteur.naissance|date("d/m/Y")}}"/>
         </div>
         <div class="grid grid-cols-2 gap-2">
             <label for="deces">
                 Date de deces :
             </label>
-            <input class="border border-gray-700" type="date" name="deces" id="deces" />
+            <input class="border border-gray-700" type="date" name="deces" id="deces" value="{{acteur.deces|date("d/m/Y")}}"/>
         </div>
         <div class="grid grid-cols-2 gap-2">
             <label>
             Photo:
             </label>
-        <input type="file" name="photo" id="photo"/>
+        <input type="file" name="photo" id="photo" value="{{acteur.photo}}"/>
         </div> 
         <div class="col-span-2 flex justify-around">
             <button class="border border-gray-700 rounded-md px-4 py-1" type="reset">Annuler</button>

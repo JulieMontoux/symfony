@@ -4,7 +4,7 @@
 {% block pageTitle %}Création d'Acteur{% endblock %}
 
 {% block body %}
-<form action="" method="POST" >
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="">
         <div class="grid grid-cols-2 gap-2">
             <label for="nom">
@@ -28,7 +28,7 @@
             <label for="deces">
                     Date de deces :
             </label>
-            <input class="border border-gray-700" type="date" name="deces" id="deces" />
+            <input class="border border-gray-700" type="date" name="deces" id="deces" required="false"  />
         </div>
         <div class="grid grid-cols-2 gap-2">
             <label>

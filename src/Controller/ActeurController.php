@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Acteur;
 use App\Repository\ActeurRepository;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,10 @@ class ActeurController extends AbstractController
         if ($request->isMethod("POST")) {
             $acteur              = new Acteur;
             $manager = $this->getDoctrine()->getManager();
+            $file = $request->files->get('photo');
+            $newFilename = $file->getClientOriginalName();
+               
+            $file->move($this->getParameter('image_directory'),$newFilename);
 
             // Insertion en BDD
             $acteur->setNom($request->request->get('nom'))
@@ -42,34 +47,28 @@ class ActeurController extends AbstractController
                     \DateTime::createFromFormat('Y-m-d', $request->request->get('naissance'))
                 )
                 ->setDeces(
-                    \DateTime::createFromFormat('Y-m-d', $request->request->get('deces')) ?: null
-                )
-                ->setPhoto('photo');
-            $manager->persist($acteur);
-            $manager->flush();
-            $file = $request->files->get('photo');
-            if ($file) {
-                $newFilename = 'acteur-' . $acteur->getId() . '.' . $file->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $file->move(
-                        'images',
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-                $acteur->setPhoto('images/' . $newFilename);
+                    \DateTime::createFromFormat('Y-m-d', $request->request->get('deces'))?: null
+                );
+           
+       
+      
+         
+                 
+                
+                    
+                $acteur->setPhoto($newFilename);
+              
+             
+           $manager->persist($acteur);
                 $manager->flush();
-            }
-            return $this->redirectToRoute('app_acteur');
-        } else {
-            // Affichage du formulaire
+                return $this->redirectToRoute('app_acteur');
+            
+        }
+                    // Affichage du formulaire
             return $this->render('acteur/create.html.twig', [
                 'controller_name' => 'ActeurController',
             ]);
-        }
+        
     }
 
 
@@ -87,7 +86,7 @@ class ActeurController extends AbstractController
                 \DateTime::createFromFormat('Y-m-d', $request->request->get('naissance'))
             )
             ->setDeces(
-                \DateTime::createFromFormat('Y-m-d', $request->request->get('deces'))
+                \DateTime::createFromFormat('Y-m-d', $request->request->get('deces')?:Null)
             )
             ->setPhoto($request->request->get('photo'));
 
@@ -98,10 +97,12 @@ class ActeurController extends AbstractController
             $acteurs = $this->getDoctrine()
                 ->getRepository(Acteur::class)
                 ->findAll();
+            
             // Affichage du formulaire
             return $this->render('acteur/edit.html.twig', [
                 'controller_name' => 'ActeurController',
                 'acteurs'           => $acteurs,
+                'acteur'=>$acteur
             ]);
         }
     }
