@@ -18,14 +18,15 @@
                 <th>Genre</th>
                 <th>Date de sortie</th>
                 <th>Affiche</th>
-                <th>Option</th>
             </tr>
         </thead>
         <tbody>
             {% for films in film %}
             <tr>
                 <td><a href="{{ url('app_film_show', {'id': films.id}) }}">{{ films.titre }}</a></td> 
-                <td>{{ films.genre.categorie}}</td>
+                <td>
+                    <a href="{{ url('liste', {'genreid': films.genre.id}) }}">{{films.genre.categorie}}</a>
+                </td>
                 <td>{{ films.sortie|date("Y")}}</td>
                 
                 <td>

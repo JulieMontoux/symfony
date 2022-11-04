@@ -117,12 +117,12 @@ class FilmController extends AbstractController
             $film->setGenre($genre);
 
             $acteur = $request->request->get('acteur');
-            foreach($i as $acteur) {
-                $acteur = $this->getDoctrine()
-                ->getRepository(Acteur::class)
-                ->find($acteur);
-                $film->addActeur($acteur);
-            }
+            // foreach($i as $acteur) {
+            //     $acteur = $this->getDoctrine()
+            //     ->getRepository(Acteur::class)
+            //     ->find($acteur);
+            //     $film->addActeur($acteur);
+            // }
 
             $manager->flush();
 
@@ -157,7 +157,7 @@ class FilmController extends AbstractController
     public function liste(FilmRepository $res ,$genreid): Response
     {
         $films=$res->findByGenre($genreid);
-        return $this->render('film/index.html.twig', [
+        return $this->render('film/gf.html.twig', [
             'controller_name' => 'FilmController',
             'films'          => $films
         ]);

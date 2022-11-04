@@ -54,13 +54,13 @@ class FilmRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Film
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneByGenre($genreid): ?Film
+    {
+        return $this->createQueryBuilder('film')
+            ->andWhere('film.genre = :genreid')
+            ->setParameter('genreid', $genreid)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

@@ -17,9 +17,9 @@
                 <h2 class="text-center text-muted">Annee de sortie: {{film.sortie|date("Y")}}</h2>
                 <h2 class="text-center text-muted">Genre: {{ film.genre.categorie}}</h2>
                 <h2>Acteurs :</h2>
-                <td>{% for acteur in film.acteurs %}
+                {# <td>{% for acteur in film.acteurs %}
                     <a href="{{ url('acteur', {'id': acteur.id}) }}" >{{ acteur.nom }}</a>
-                    {% endfor %}</td>
+                    {% endfor %}</td> #}
             </div>
         </div>
     </div>

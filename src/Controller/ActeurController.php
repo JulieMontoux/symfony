@@ -47,8 +47,22 @@ class ActeurController extends AbstractController
                 ->setPhoto('photo');
             $manager->persist($acteur);
             $manager->flush();
-            
-           
+            $file = $request->files->get('cover');
+            if ($file) {
+                $newFilename = 'acteur-' . $acteur->getId() . '.' . $file->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        'images',
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $acteur->setPhoto('images/' . $newFilename);
+                $manager->flush();
+            }
             return $this->redirectToRoute('app_acteur');
         } else {
             // Affichage du formulaire
