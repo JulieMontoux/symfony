@@ -145,9 +145,10 @@ class FilmController extends AbstractController
     /**
      *  @Route("/film/{genreid}/genre", name="liste")
      */
-    public function liste(FilmRepository $res ,$genreid): Response
+    public function liste(FilmRepository $res ,$genreid)
     {
         $films=$res->findByGenre($genreid);
+
         return $this->render('film/gf.html.twig', [
             'controller_name' => 'FilmController',
             'films'          => $films

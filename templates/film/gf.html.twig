@@ -17,7 +17,11 @@
         <tr>
             <td><a href="{{ url('app_film_show', {'id': film.id}) }}">{{ film.titre }}</a></td> 
             <td>{{ film.sortie|date("Y")}}</td>
-            <td>{{ film.affiche}}</td>
+            <td>
+                {% if film.affiche is not null %}
+                    <img src="{{ asset("affiches/"~film.affiche) }}" width="100" />
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
