@@ -35,11 +35,7 @@ class ActeurController extends AbstractController
             $acteur              = new Acteur;
             $manager = $this->getDoctrine()->getManager();
 
-            $image = $request->files->get('photo');
-            $image_name = $image->getClientOriginalName();
-            $image->move($this->getParameter('image_directory'),$image_name);
             // Insertion en BDD
-         
             $acteur->setNom($request->request->get('nom'))
                 ->setPrenom($request->request->get('prenom'))
                 ->setNaissance(
@@ -48,7 +44,7 @@ class ActeurController extends AbstractController
                 ->setDeces(
                     \DateTime::createFromFormat('Y-m-d', $request->request->get('deces')) ?: null
                 )
-                ->setPhoto($image_name);
+                ->setPhoto('photo');
             $manager->persist($acteur);
             $manager->flush();
             

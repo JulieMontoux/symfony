@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Acteur;
 use App\Entity\Film;
 use App\Entity\Genre;
 use App\Repository\FilmRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +29,7 @@ class FilmController extends AbstractController
         ]);
     }
 
-   /**
+    /**
      * @Route("/film/{id}", name="app_film_show")
      */
 
@@ -106,14 +108,21 @@ class FilmController extends AbstractController
             $film->setTitre($request->request->get('titre'))
                 ->setResume($request->request->get('resume'))
                 ->setSortie(
-                \DateTime::createFromFormat('Y-m-d', $request->request->get('sortie')))
-                ->setGenre($request->request->get('genre_id'))
-                ->setAffiche($request->request->get('affiche'));
+                    \DateTime::createFromFormat('Y-m-d', $request->request->get('sortie'))
+                );
 
             $genre = $this->getDoctrine()
                 ->getRepository(Genre::class)
-                ->find($request->request->get('genre_id'));
+                ->find($request->request->get('genre'));
             $film->setGenre($genre);
+
+            $acteur = $request->request->get('acteur');
+            foreach($i as $acteur) {
+                $acteur = $this->getDoctrine()
+                ->getRepository(Acteur::class)
+                ->find($acteur);
+                $film->addActeur($acteur);
+            }
 
             $manager->flush();
 
@@ -131,6 +140,7 @@ class FilmController extends AbstractController
         }
     }
 
+
     /**
      * @Route("/film/{film}/delete", name="app_film_delete")
      */
@@ -141,4 +151,15 @@ class FilmController extends AbstractController
         return $this->redirectToRoute('app_film');
     }
 
+    /**
+     *  @Route("/film/{genreid}/genre", name="liste")
+     */
+    public function liste(FilmRepository $res ,$genreid): Response
+    {
+        $films=$res->findByGenre($genreid);
+        return $this->render('film/index.html.twig', [
+            'controller_name' => 'FilmController',
+            'films'          => $films
+        ]);
+    }
 }

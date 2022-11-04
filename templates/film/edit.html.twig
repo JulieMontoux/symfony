@@ -41,6 +41,17 @@
             </label>
             <input class="border border-gray-700" type="text" name="affiche" id="affiche" />
         </div> 
+        <div class="grid grid-cols-2 gap-2">
+            <label for="acteurs">
+                Acteurs :
+            </label>
+            <select class="border border-gray-700" name="acteurs" id="acteurs">
+                <option value="" />
+                {% for acteur in film.acteurs %}
+                    <option value="{{ acteur.id }}">{{ acteur.nom}}{{ acteur.prenom}}</option>
+                {% endfor %}
+            </select> 
+        </div>
         <div class="col-span-2 flex justify-around">
             <button class="border border-gray-700 rounded-md px-4 py-1" type="reset">Annuler</button>
             <button class="border border-gray-700 rounded-md px-4 py-1" type="submit">Enregistrer</button>
